@@ -1,0 +1,121 @@
+$purple: #3019b2;
+$gray: #9f9f9f;
+$border: #f0f0f0;
+
+.header {
+  font-family: "Poppins", sans-serif;
+  background: #fff;
+
+  &__container { max-width: 1280px; margin: 0 auto; }
+
+  &__top {
+    height: 32px;
+    border-bottom: 1px solid $border;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__benefits {
+    display: flex;
+    gap: 119px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__benefit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 600;
+    color: $purple;
+
+    svg { color: $gray; }
+
+    &--muted { font-weight: 500; color: $gray; }
+  }
+
+  &__main {
+    height: 72px;
+    border-bottom: 1px solid $border;
+    box-sizing: content-box;
+  }
+
+  &__row {
+    height: 72px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo { width: 139px; height: 41px; display: block; }
+
+  &__search {
+    margin-left: 186px;
+    width: 630px;
+    height: 48px;
+    background: #f7f5f2;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 0 24px 0 16px;
+
+    input {
+      flex: 1;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      font: 500 14px/21px "Poppins", sans-serif;
+      color: #333;
+
+      &::placeholder { color: $gray; }
+    }
+  }
+
+  &__search button,
+  &__actions button {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    color: $gray;
+    display: flex;
+  }
+
+  &__actions {
+    margin-left: auto;
+    display: flex;
+    gap: 32px;
+  }
+
+  &__nav {
+    height: 40px;
+    box-shadow: 0 8px 16px rgba(57, 48, 19, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__nav-list {
+    display: flex;
+    gap: 91px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    a {
+      font-size: 12px;
+      line-height: 18px;
+      font-weight: 600;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: $gray;
+
+      &.is-active { color: $purple; }
+    }
+  }
+
+  &__subscription { display: flex; align-items: center; gap: 12px; }
+}

@@ -1,62 +1,100 @@
-
-.product-card {
+.card {
+  display: flex;
   min-width: 0;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
   background: #fff;
+  color: #222;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 
-  &__button {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    flex-direction: column;
-    align-items: center;
-    padding: 16px;
-    border: 1px solid #e5e5e5;
-    background: #fff;
-    color: #222;
-    text-align: center;
-    cursor: pointer;
-    font: inherit;
-    transition: box-shadow 0.2s ease;
-
-    &:hover {
-      box-shadow: 0 4px 16px rgb(0 0 0 / 10%);
-    }
-
-    &:focus-visible {
-      outline: 2px solid #333;
-      outline-offset: 3px;
-    }
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 10%);
   }
 
-  &__image {
+  &__img {
     display: block;
     width: 100%;
-    max-width: 200px;
     height: 180px;
+    margin-bottom: 16px;
     object-fit: contain;
   }
 
-  &__title {
-    margin: 16px 0 8px;
+  &__name {
+    margin: 0 0 8px;
     font-size: 16px;
     font-weight: 600;
+    line-height: 1.4;
   }
 
   &__description {
     margin: 0 0 12px;
     color: #666;
     font-size: 14px;
+    line-height: 1.5;
   }
 
   &__price {
-    margin: 0 0 16px;
+    display: block;
+    margin-top: auto;
     font-size: 18px;
     font-weight: 700;
   }
 
-  &__action {
-    margin-top: auto;
-    font-size: 14px;
-    text-decoration: underline;
+  &__installments {
+    margin: 6px 0 10px;
+    color: #666;
+    font-size: 13px;
+  }
+
+  &__shipping {
+    margin-bottom: 14px;
+    color: #168a45;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  &__buy {
+    width: 100%;
+    min-height: 42px;
+    border: 0;
+    border-radius: 4px;
+    background: #1c1c1c;
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background: #444;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #1c1c1c;
+      outline-offset: 3px;
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .card {
+    padding: 12px;
+
+    &__img {
+      height: 150px;
+    }
+
+    &__name {
+      font-size: 14px;
+    }
+
+    &__price {
+      font-size: 16px;
+    }
   }
 }

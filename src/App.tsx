@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
-import { ProductCard } from "./components/ProductCard/ProductCard";
+import ProductCard from "./components/ProductCard/ProductCard";
+import Header from "./components/Header/Header";
 import { getProducts } from "./services/productService";
 import type { Product } from "./types/Product";
 import "./App.css";
+
+const formatPrice = (value: number) =>
+  value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -13,10 +17,9 @@ function App() {
   useEffect(() => {
     async function loadProducts() {
       try {
-        const data = await getProducts();
-        setProducts(data);
-      } catch (error) {
-        console.error("Erro ao carregar produtos:", error);
+        setProducts(await getProducts());
+      } catch (err) {
+        console.error("Erro ao carregar produtos:", err);
         setError("Não foi possível carregar os produtos. Tente novamente.");
       } finally {
         setLoading(false);
@@ -26,29 +29,23 @@ function App() {
     loadProducts();
   }, []);
 
-  const selectedProductName = selectedProduct
-    ? selectedProduct.productName ??
-      selectedProduct["nome do produto"] ??
-      "Produto"
-    : "";
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedProduct(null);
+    };
 
-  const selectedProductPrice = selectedProduct
-    ? selectedProduct["Preço"].toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      })
-    : "";
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   return (
     <main className="app">
-      <header className="app-header">
-        <h1>Vitrine de Produtos</h1>
-        <p>Confira nossos produtos disponíveis.</p>
-      </header>
+      <Header />
 
       <section className="product-section" aria-label="Lista de produtos">
-        {loading && <p>Carregando produtos...</p>}
+        <h1>Vitrine de produtos</h1>
 
+        {loading && <p>Carregando produtos...</p>}
         {error && <p role="alert">{error}</p>}
 
         {!loading && !error && products.length === 0 && (
@@ -59,9 +56,9 @@ function App() {
           <div className="product-grid">
             {products.map((product, index) => (
               <ProductCard
-                key={`${product.productName ?? product["nome do produto"]}-${index}`}
+                key={`${product.productName}-${index}`}
                 product={product}
-                onClick={setSelectedProduct}
+                onSelect={setSelectedProduct}
               />
             ))}
           </div>
@@ -90,15 +87,13 @@ function App() {
             </button>
 
             <img
-              src={selectedProduct.foto}
-              alt={selectedProductName}
+              src={selectedProduct.photo}
+              alt={selectedProduct.productName}
             />
 
-            <h2 id="modal-title">{selectedProductName}</h2>
-
+            <h2 id="modal-title">{selectedProduct.productName}</h2>
             <p>{selectedProduct.descriptionShort}</p>
-
-            <p className="modal-price">{selectedProductPrice}</p>
+            <p className="modal-price">{formatPrice(selectedProduct.price)}</p>
           </section>
         </div>
       )}
